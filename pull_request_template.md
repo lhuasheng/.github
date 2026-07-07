@@ -9,7 +9,7 @@ Closes #
 
 ### Gate 1 — Spec
 - [ ] Linked issue has accepted acceptance criteria
-- [ ] Spec was approved before this branch was created
+- [ ] Spec was approved before this branch was created (incidents: N/A, fix forward)
 
 ### Gate 2 — Generation
 - [ ] I read every Copilot suggestion before accepting

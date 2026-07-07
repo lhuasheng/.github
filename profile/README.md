@@ -12,7 +12,7 @@ quality high without burning out our tech lead on manual review.
 - **Gate 2: Generation** — engineers own every line Copilot writes.
 - **Gate 3: PR Review** — Claude pre-screens every PR via `/ai-review`.
 - **Gate 4: CI** — lint, tests, security, PR-size, spec-link all block merge.
-- **Gate 5: Deploy** — staging soak before production promotion.
+- **Gate 5: Deploy** — cut a tagged release, then ship it through your pipeline.
 
 The full contributor guide lives at
 [`.github/CONTRIBUTING.md`](https://github.com/lhuasheng/.github/blob/main/CONTRIBUTING.md).
@@ -23,6 +23,7 @@ The full contributor guide lives at
 |---|---|
 | [`.github`](https://github.com/lhuasheng/.github) | Org-wide defaults (this repo's metadata) |
 | [`shared-sdlc`](https://github.com/lhuasheng/shared-sdlc) | Reusable CI gates and AI-review actions |
+| `shared-agentic` | Reasoning-heavy AI workflows (triage, digest, release notes) — not yet created |
 | [`project-1`](https://github.com/lhuasheng/project-1) | _[describe the product]_ |
 
 ## Working with us

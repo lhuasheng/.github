@@ -21,14 +21,17 @@ Gate 5: Deploy     → Has it been staged and monitored?
 
 ## Gate 1 — Intent (Before You Write Code)
 
-1. **Find or create a GitHub Issue** using the Feature Request or Bug Report template.
+1. **Find or create a GitHub Issue** using the Feature Request, Bug Report, or Incident template.
 2. **Fill in every field.** Acceptance criteria must be specific enough that "done" is unambiguous.
-3. **Wait for spec approval.** The tech lead will comment "approved" on the issue. No branch before approval.
+3. **Wait for spec approval.** The tech lead comments "approved" (and may apply the `gate-1-spec` label). No branch before approval. (Incidents skip this — see Gate 5.)
 4. **Create your branch** from `main`:
    ```
+   git checkout main && git pull
    git checkout -b feat/issue-42-csv-export
    ```
    Branch naming: `feat/`, `fix/`, `refactor/`, `docs/` + issue number + short description.
+
+> **Automated triage**: once [`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic) is bootstrapped for this org (see `shared-sdlc/docs/playbook.md`), the `issue-triage` workflow auto-classifies and labels new issues within ~30 seconds. That repo doesn't exist yet, so triage is manual for now.
 
 > Why: AI generates the wrong thing perfectly if the spec is vague.
 > Catching ambiguity at Gate 1 costs 10 minutes. Catching it at Gate 3 costs 2 hours.
@@ -85,7 +88,7 @@ These checks run automatically and **block merge if they fail**:
 |---|---|
 | ESLint | Style violations, obvious errors |
 | TypeScript | Type errors |
-| Tests + Coverage | Broken behaviour, coverage below 70% |
+| Tests + Coverage | Broken behaviour (coverage threshold is set by your own `test:coverage` config) |
 | PR size | PRs over 400 lines |
 | Security scan | Known vulnerabilities, hardcoded secrets |
 | Issue link | PRs not linked to a spec |
@@ -96,10 +99,18 @@ If CI fails: fix it. Do not ask for exceptions. Do not disable the check.
 
 ## Gate 5 — Deploy
 
-1. Merge to `main` triggers deploy to **staging** automatically.
-2. Test your feature on staging.
-3. Monitor for 24 hours (check Sentry if configured).
-4. Tech lead promotes to production.
+### Standard flow
+1. **Merge to `main`** via a reviewed PR (Gates 1-4 above). `ci-gates` blocks the merge until lint, tests, PR size, security scan, and the spec-link check all pass.
+2. **Cut a release** by pushing a semver tag once you're ready to ship:
+   ```
+   git tag v1.4.0 && git push origin v1.4.0
+   ```
+3. **Release notes are drafted for you** — the tag push triggers `release-notes-router`, which opens a PR with generated notes (requires `shared-agentic`; write them by hand until that repo is bootstrapped).
+4. **Deploy the tagged commit** using this project's own pipeline. `shared-sdlc` enforces the gates before a release; it doesn't prescribe where the release goes.
+5. **Monitor after deploy** — watch error rates / Sentry for your team's normal soak window.
+
+### Incidents
+Use the Incident template (labelled `bug` + `P1-critical`). Assign an engineer immediately — don't wait for Gate 1 spec approval. Fix forward through Gates 2-4, merge to `main`, then leave a short root-cause comment on the issue before closing it. There's no automated RCA capture today, so that write-up is on you.
 
 ---
 
@@ -131,6 +142,6 @@ Use the template at `/docs/adr/TEMPLATE.md`.
 - **Gate 2**: Bugs traced back to unread Copilot output are a learning moment, documented.
 - **Gate 3**: PRs without `/ai-review` and without 🔴 items addressed will not be approved.
 - **Gate 4**: CI blocks the merge. Period.
-- **Gate 5**: Deploying to prod without staging sign-off is a team norm violation.
+- **Gate 5**: Deploying an untagged commit (skipping the release step) is a team norm violation.
 
 This isn't bureaucracy — it's how we ship reliably with a team that uses AI heavily.

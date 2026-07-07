@@ -1,0 +1,56 @@
+name: Feature Request
+description: Propose a new feature or enhancement
+labels: ["feature", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill in every field. Acceptance criteria must be specific enough that "done" is unambiguous.
+        A tech lead must approve this spec before any code is written (Gate 1).
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What do you want to build, in one sentence?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Being Solved
+      description: What user or business problem does this address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How should it work? Include key UI or API behaviour.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: List specific, testable conditions.
+      placeholder: |
+        - [ ] Given a logged-in user, when they click Export, a CSV is downloaded
+        - [ ] CSV contains all rows visible in the current filter
+        - [ ] Empty state returns 204 with no file download
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Estimated Complexity
+      options:
+        - Small (< 2 hours, single file)
+        - Medium (half day – 2 days)
+        - Large (> 2 days — needs an ADR before coding starts)
+    validations:
+      required: true

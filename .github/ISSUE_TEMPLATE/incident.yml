@@ -1,0 +1,49 @@
+name: Incident Report
+description: Production is broken or significantly degraded — use this for live issues only
+labels: ["bug", "P1-critical"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **Live incident.** Assign an engineer immediately — don't wait for Gate 1 spec
+        approval on this one. Fix forward through the normal PR gates (2-4), then leave a
+        short root-cause comment on this issue before closing it. There's no automated RCA
+        capture, so this write-up is on you.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - P1 — Production down or data loss (respond now)
+        - P2 — Major degradation, workaround exists (respond within 2h)
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: What is broken? How many users or services are affected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline
+      description: When did it start? What changed recently (deploy, config, infra)?
+      placeholder: |
+        - HH:MM  First report / alert
+        - HH:MM  Identified likely cause
+        - HH:MM  Mitigation applied
+    validations:
+      required: true
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: Current Mitigation
+      description: What has been done to reduce impact right now? (Write "None yet" if nothing has been applied.)
+    validations:
+      required: true
