@@ -21,9 +21,8 @@ The full contributor guide lives at
 
 | Repo | What it is |
 |---|---|
-| [`.github`](https://github.com/lhuasheng/.github) | Org-wide defaults (this repo's metadata) |
+| [`.github`](https://github.com/lhuasheng/.github) | Org-wide defaults, plus reasoning-heavy AI workflows (triage, digest, release notes) in `.github/workflows/` |
 | [`shared-sdlc`](https://github.com/lhuasheng/shared-sdlc) | Reusable CI gates and AI-review actions |
-| `shared-agentic` | Reasoning-heavy AI workflows (triage, digest, release notes) — not yet created |
 | [`project-1`](https://github.com/lhuasheng/project-1) | _[describe the product]_ |
 
 ## Working with us
