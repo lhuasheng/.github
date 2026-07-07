@@ -26,10 +26,12 @@ out of `shared-sdlc/templates/`.
 
 Reasoning-heavy automation (issue triage, weekly digest, release notes,
 architecture/vuln review) runs as GitHub Agentic Workflows out of
-`lhuasheng/shared-agentic` — **that repo doesn't exist yet**; see
-`shared-sdlc/docs/playbook.md` § Adoption Step 2. Until it's bootstrapped,
-`/ai-review` falls back to the legacy Anthropic-API script path built into
-`shared-sdlc`'s `ai-pr-review` action.
+[`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic),
+under `.github/workflows/*.md` there. It requires GitHub Copilot's agentic
+workflow feature to be enabled for this org (Settings → Copilot →
+Policies) — until that's confirmed on, `/ai-review` falls back to the
+legacy Anthropic-API script path built into `shared-sdlc`'s `ai-pr-review`
+action.
 
 We keep gate logic in one place so a change (say, the PR-size threshold)
 rolls out everywhere without touching every repo.
@@ -40,7 +42,7 @@ rolls out everywhere without touching every repo.
 lhuasheng/
 ├── .github/         ← you are here (org defaults)
 ├── shared-sdlc/     ← composite actions + scripts (deterministic gates)
-├── shared-agentic/  ← agentic workflows (reasoning gates) — not yet created
+├── shared-agentic/  ← agentic workflows (reasoning gates)
 ├── project-1/       ← example product repo (thin caller workflows)
 ├── project-2/       ← future product
 └── ...

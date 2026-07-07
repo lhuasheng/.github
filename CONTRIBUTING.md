@@ -31,7 +31,7 @@ Gate 5: Deploy     → Has it been staged and monitored?
    ```
    Branch naming: `feat/`, `fix/`, `refactor/`, `docs/` + issue number + short description.
 
-> **Automated triage**: once [`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic) is bootstrapped for this org (see `shared-sdlc/docs/playbook.md`), the `issue-triage` workflow auto-classifies and labels new issues within ~30 seconds. That repo doesn't exist yet, so triage is manual for now.
+> **Automated triage**: [`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic) hosts the `issue-triage` agentic workflow, which auto-classifies and labels new issues within ~30 seconds. It requires GitHub Copilot's agentic workflow feature to be enabled for this org (Settings → Copilot → Policies) — until that's confirmed on, treat triage as manual.
 
 > Why: AI generates the wrong thing perfectly if the spec is vague.
 > Catching ambiguity at Gate 1 costs 10 minutes. Catching it at Gate 3 costs 2 hours.
@@ -105,7 +105,7 @@ If CI fails: fix it. Do not ask for exceptions. Do not disable the check.
    ```
    git tag v1.4.0 && git push origin v1.4.0
    ```
-3. **Release notes are drafted for you** — the tag push triggers `release-notes-router`, which opens a PR with generated notes (requires `shared-agentic`; write them by hand until that repo is bootstrapped).
+3. **Release notes are drafted for you** — the tag push triggers `release-notes-router`, which dispatches `release-notes.md` in [`shared-agentic`](https://github.com/lhuasheng/shared-agentic) to open a PR with generated notes (requires Copilot's agentic workflow feature enabled for this org; write them by hand until then).
 4. **Deploy the tagged commit** using this project's own pipeline. `shared-sdlc` enforces the gates before a release; it doesn't prescribe where the release goes.
 5. **Monitor after deploy** — watch error rates / Sentry for your team's normal soak window.
 
