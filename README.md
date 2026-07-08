@@ -25,13 +25,16 @@ actions. Project repos call those actions from thin caller workflows copied
 out of `shared-sdlc/templates/`.
 
 Reasoning-heavy automation (issue triage, weekly digest, release notes,
-architecture/vuln review) runs as GitHub Agentic Workflows out of
-[`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic),
-under `.github/workflows/*.md` there. It requires GitHub Copilot's agentic
-workflow feature to be enabled for this org (Settings → Copilot →
-Policies) — until that's confirmed on, `/ai-review` falls back to the
-legacy Anthropic-API script path built into `shared-sdlc`'s `ai-pr-review`
-action.
+architecture/vuln review) runs as GitHub Agentic Workflows. Their canonical
+sources live in
+[`lhuasheng/shared-agentic`](https://github.com/lhuasheng/shared-agentic)
+(`.github/workflows/*.md` plus compiled `*.lock.yml`), and
+`shared-sdlc/new-project.sh` vendors both files into each project repo so
+the workflows run locally with the repo-scoped `GITHUB_TOKEN`. This requires
+GitHub Copilot's agentic workflow feature to be enabled for this org
+(Settings → Copilot → Policies) — until that's confirmed on, `/ai-review`
+falls back to the legacy Anthropic-API script path built into
+`shared-sdlc`'s `ai-pr-review` action.
 
 We keep gate logic in one place so a change (say, the PR-size threshold)
 rolls out everywhere without touching every repo.
